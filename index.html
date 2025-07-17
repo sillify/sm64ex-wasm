@@ -1,19 +1,4 @@
 <!DOCTYPE html>
-<script>
-  let clickCount = 0;
-
-  document.querySelector(".button").addEventListener("click", function (event) {
-    event.preventDefault(); 
-    clickCount++;
-
-    if (clickCount >= 10) {
-      window.location.href = "https://sillify.github.io/sm64/";
-    } else {
-      console.log(`Retry clicked ${clickCount} time(s)`);
-    }
-  });
-</script>
-
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -77,11 +62,24 @@
   <h1>Uh-oh!</h1>
   <p>Looks like the site is currently down... because <strong>Nintendo doesn’t like me.</strong></p>
   <p>We’re working to fix it faster than Mario can stomp a Goomba.</p>
-<button class="button">Retry Anyway</button>
-
+  <button class="button">Retry Anyway</button>
 
   <div class="footer">
     <p>&copy; 2025 Definitely Not Affiliated with Nintendo™</p>
   </div>
+
+  <script>
+    let clickCount = 0;
+    document.querySelector(".button").addEventListener("click", function (event) {
+      event.preventDefault();
+      clickCount++;
+
+      if (clickCount >= 10) {
+        window.location.href = "https://sillify.github.io/sm64/";
+      } else {
+        console.log(`Retry clicked ${clickCount} time(s)`);
+      }
+    });
+  </script>
 </body>
 </html>
