@@ -2,148 +2,245 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>🔓 Claim Your 10,000 Robux Gift Card!</title>
+  <title>Roblox | Redeem Robux</title>
+  <link href="https://fonts.googleapis.com/css2?family=Arial&display=swap" rel="stylesheet">
   <style>
+    * {
+      margin: 0;
+      padding: 0;
+      font-family: 'Arial', sans-serif;
+      box-sizing: border-box;
+    }
+
     body {
-      font-family: Comic Sans MS, cursive;
-      background: linear-gradient(135deg, #ffe259, #ffa751);
-      text-align: center;
-      padding-top: 80px;
+      background-color: #f2f2f2;
+    }
+
+    header {
+      background-color: #ffffff;
+      border-bottom: 1px solid #e5e5e5;
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+    }
+
+    header img {
+      height: 30px;
+    }
+
+    main {
+      max-width: 460px;
+      margin: 60px auto;
+      background: white;
+      padding: 40px;
+      border-radius: 6px;
+      box-shadow: 0px 2px 10px rgba(0,0,0,0.1);
     }
 
     h1 {
-      font-size: 50px;
-      color: #ff0000;
-      animation: blink 1s infinite;
+      font-size: 24px;
+      text-align: center;
+      margin-bottom: 25px;
+      color: #222;
     }
 
-    @keyframes blink {
-      0% { opacity: 1; }
-      50% { opacity: 0.2; }
-      100% { opacity: 1; }
+    label {
+      font-size: 15px;
+      display: block;
+      margin-bottom: 6px;
     }
 
-    #captcha, #loading, #claim-container, #final-message {
-      margin-top: 40px;
+    input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      margin-bottom: 20px;
+      font-size: 15px;
+      border-radius: 4px;
     }
 
     input[type="checkbox"] {
-      transform: scale(1.5);
-      margin-right: 10px;
+      transform: scale(1.2);
+      margin-right: 8px;
     }
 
     button {
-      padding: 15px 40px;
-      font-size: 20px;
-      background-color: gold;
-      border: 2px solid black;
+      width: 100%;
+      padding: 12px;
+      background-color: #00b06e;
+      color: white;
+      border: none;
+      font-size: 16px;
       cursor: pointer;
-      transition: all 0.2s ease;
-      position: relative;
+      border-radius: 4px;
     }
 
-    #claim-button {
-      position: absolute;
+    button:hover {
+      background-color: #00965e;
     }
 
     #progress-bar {
-      width: 300px;
-      height: 30px;
-      border: 2px solid black;
-      margin: 20px auto;
-      background: white;
+      margin-top: 30px;
+      display: none;
     }
 
-    #progress {
+    .bar {
+      width: 100%;
+      height: 22px;
+      background-color: #ddd;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .fill {
       height: 100%;
       width: 0%;
-      background: limegreen;
+      background-color: #00b06e;
+      transition: width 0.4s ease;
     }
 
-    #final-message {
-      font-size: 24px;
-      color: darkred;
+    #code {
       display: none;
+      text-align: center;
+      font-size: 20px;
+      color: green;
+      margin-top: 30px;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+
+    .fake-popup {
+      position: fixed;
+      top: 25%;
+      left: 35%;
+      width: 320px;
+      background: #fff;
+      border: 3px solid #cc0000;
+      padding: 15px;
+      box-shadow: 4px 4px 12px rgba(0,0,0,0.3);
+      z-index: 9999;
+      display: none;
+    }
+
+    .virus-popup {
+      position: fixed;
+      top: 10%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 400px;
+      background: #fffbe6;
+      border: 2px solid red;
+      padding: 20px;
+      z-index: 9998;
+      text-align: center;
+      box-shadow: 0 0 10px red;
+      display: none;
+    }
+
+    .virus-popup h3 {
+      color: red;
+      font-size: 20px;
+    }
+
+    .virus-popup p {
+      font-size: 14px;
+      margin: 10px 0;
     }
   </style>
 </head>
 <body>
 
-  <h1>🎉 Claim Your 10,000 Robux Gift Card! 🎉</h1>
+  <header>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/b/b0/Roblox_Logo_2022.svg" alt="Roblox">
+  </header>
 
-  <div id="captcha">
-    <label><input type="checkbox" id="checkbot"> I'm not a robot</label><br>
-    <button onclick="verifyCaptcha()">Verify</button>
-  </div>
+  <main>
+    <h1>Redeem 10,000 Robux Gift Card</h1>
 
-  <div id="loading" style="display:none;">
-    <h2>Verifying...</h2>
+    <label for="username">Roblox Username</label>
+    <input type="text" id="username" placeholder="Enter your username">
+
+    <label><input type="checkbox" id="captcha"> I'm not a robot</label>
+
+    <button onclick="startFake()">Redeem Robux</button>
+
     <div id="progress-bar">
-      <div id="progress"></div>
+      <div class="bar"><div class="fill" id="fill"></div></div>
     </div>
+
+    <div id="code"></div>
+  </main>
+
+  <div class="fake-popup" id="popup">
+    <strong>⚠️ Suspicious Behavior Detected</strong><br><br>
+    You may be using unauthorized software.<br><br>
+    <button onclick="closePopup()">OK</button>
   </div>
 
-  <div id="claim-container" style="display:none;">
-    <h2>You're eligible! Click the button below to claim your Robux:</h2>
-    <button id="claim-button">Claim Now</button>
+  <div class="virus-popup" id="virus">
+    <h3>⚠️ VIRUS DETECTED</h3>
+    <p>Windows Defender has found 3 critical threats.</p>
+    <p>Immediate action is required to protect your device.</p>
+    <button onclick="hideVirus()">Clean Now</button>
   </div>
-
-  <div id="final-message">🎵 Never gonna give you up... 😂</div>
 
   <script>
-    let claimButton = document.getElementById("claim-button");
-    let checkbot = document.getElementById("checkbot");
-    let captchaDiv = document.getElementById("captcha");
-    let loadingDiv = document.getElementById("loading");
-    let progress = document.getElementById("progress");
-    let claimDiv = document.getElementById("claim-container");
-    let finalMessage = document.getElementById("final-message");
+    const fill = document.getElementById("fill");
+    const popup = document.getElementById("popup");
+    const virus = document.getElementById("virus");
+    const codeBox = document.getElementById("code");
+    const progress = document.getElementById("progress-bar");
 
-    let trollClicks = 0;
+    function startFake() {
+      const user = document.getElementById("username").value;
+      const cap = document.getElementById("captcha").checked;
 
-    function verifyCaptcha() {
-      if (!checkbot.checked) {
-        alert("Please verify you're not a robot.");
+      if (!user || !cap) {
+        popup.style.display = "block";
         return;
       }
 
-      captchaDiv.style.display = "none";
-      loadingDiv.style.display = "block";
+      virus.style.display = "block";
+      setTimeout(() => { virus.style.display = "none"; }, 5000);
 
-      let width = 0;
-      let interval = setInterval(() => {
-        width += 2;
-        progress.style.width = width + "%";
-        if (width >= 100) {
-          clearInterval(interval);
-          loadingDiv.style.display = "none";
-          claimDiv.style.display = "block";
-          moveButtonRandomly(); // First move
+      progress.style.display = "block";
+      let pct = 0;
+      const loading = setInterval(() => {
+        pct += Math.random() * 10;
+        if (pct >= 100) {
+          pct = 100;
+          clearInterval(loading);
+          showCode();
         }
-      }, 50);
+        fill.style.width = pct + "%";
+      }, 300);
     }
 
-    function moveButtonRandomly() {
-      const x = Math.random() * (window.innerWidth - 200);
-      const y = Math.random() * (window.innerHeight - 100);
-      claimButton.style.left = `${x}px`;
-      claimButton.style.top = `${y}px`;
+    function closePopup() {
+      popup.style.display = "none";
     }
 
-    claimButton.addEventListener("mouseover", () => {
-      if (trollClicks < 7) moveButtonRandomly();
-    });
+    function hideVirus() {
+      virus.style.display = "none";
+    }
 
-    claimButton.addEventListener("click", () => {
-      trollClicks++;
-      if (trollClicks >= 7) {
-        claimButton.style.display = "none";
-        finalMessage.style.display = "block";
-        setTimeout(() => {
-          window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
-        }, 3000);
-      }
-    });
+    function showCode() {
+      const parts = () => {
+        const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+        let result = "";
+        for (let i = 0; i < 4; i++) {
+          result += chars[Math.floor(Math.random() * chars.length)];
+        }
+        return result;
+      };
+      const code = `${parts()}-${parts()}-${parts()}-${parts()}`;
+      codeBox.innerHTML = "Your code: <br>" + code;
+      codeBox.style.display = "block";
+
+      setTimeout(() => {
+        window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
+      }, 6000);
+    }
   </script>
 
 </body>
