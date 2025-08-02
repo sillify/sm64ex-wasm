@@ -1,83 +1,150 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Site Down - Blame Nintendo</title>
+  <meta charset="UTF-8">
+  <title>🔓 Claim Your 10,000 Robux Gift Card!</title>
   <style>
     body {
-      background-color: #1a1a1a;
-      color: #ffffff;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
+      font-family: Comic Sans MS, cursive;
+      background: linear-gradient(135deg, #ffe259, #ffa751);
       text-align: center;
-      height: 100vh;
-      margin: 0;
+      padding-top: 80px;
     }
 
     h1 {
-      font-size: 3rem;
-      margin-bottom: 1rem;
-      color: #ff4757;
+      font-size: 50px;
+      color: #ff0000;
+      animation: blink 1s infinite;
     }
 
-    p {
-      font-size: 1.25rem;
-      margin: 0.5rem 0;
-      max-width: 500px;
+    @keyframes blink {
+      0% { opacity: 1; }
+      50% { opacity: 0.2; }
+      100% { opacity: 1; }
     }
 
-    .mario {
-      font-size: 5rem;
-      margin: 1rem 0;
+    #captcha, #loading, #claim-container, #final-message {
+      margin-top: 40px;
     }
 
-    .secret {
-      color: #ff4757;
-      font-weight: bold;
+    input[type="checkbox"] {
+      transform: scale(1.5);
+      margin-right: 10px;
+    }
+
+    button {
+      padding: 15px 40px;
+      font-size: 20px;
+      background-color: gold;
+      border: 2px solid black;
       cursor: pointer;
+      transition: all 0.2s ease;
+      position: relative;
     }
 
-    .button {
-      margin-top: 2rem;
-      padding: 0.75rem 1.5rem;
-      background-color: #ff4757;
-      color: white;
-      text-decoration: none;
-      border: none;
-      border-radius: 0.5rem;
-      font-size: 1rem;
-      cursor: pointer;
+    #claim-button {
+      position: absolute;
     }
 
-    .button:hover {
-      background-color: #e84118;
+    #progress-bar {
+      width: 300px;
+      height: 30px;
+      border: 2px solid black;
+      margin: 20px auto;
+      background: white;
     }
 
-    .footer {
-      margin-top: 2rem;
-      font-size: 0.9rem;
-      color: #888;
+    #progress {
+      height: 100%;
+      width: 0%;
+      background: limegreen;
+    }
+
+    #final-message {
+      font-size: 24px;
+      color: darkred;
+      display: none;
     }
   </style>
 </head>
 <body>
-  <div class="mario">🍄</div>
-  <h1>Uh-oh!</h1>
-  <p>Looks like the site is currently down... because <strong>Nintendo doesn’t like me.</strong></p>
-  <p>We’re working to fix it faster than <span class="secret" id="mario-word">Mario</span> can stomp a Goomba.</p>
-  <button class="button" onclick="location.reload()">Retry Anyway</button>
 
-  <div class="footer">
-    <p>&copy; 2025 Definitely Not Affiliated with Nintendo™</p>
+  <h1>🎉 Claim Your 10,000 Robux Gift Card! 🎉</h1>
+
+  <div id="captcha">
+    <label><input type="checkbox" id="checkbot"> I'm not a robot</label><br>
+    <button onclick="verifyCaptcha()">Verify</button>
   </div>
 
+  <div id="loading" style="display:none;">
+    <h2>Verifying...</h2>
+    <div id="progress-bar">
+      <div id="progress"></div>
+    </div>
+  </div>
+
+  <div id="claim-container" style="display:none;">
+    <h2>You're eligible! Click the button below to claim your Robux:</h2>
+    <button id="claim-button">Claim Now</button>
+  </div>
+
+  <div id="final-message">🎵 Never gonna give you up... 😂</div>
+
   <script>
-    document.getElementById("mario-word").addEventListener("click", () => {
-      window.location.href = "https://sillify.github.io/sm64/";
+    let claimButton = document.getElementById("claim-button");
+    let checkbot = document.getElementById("checkbot");
+    let captchaDiv = document.getElementById("captcha");
+    let loadingDiv = document.getElementById("loading");
+    let progress = document.getElementById("progress");
+    let claimDiv = document.getElementById("claim-container");
+    let finalMessage = document.getElementById("final-message");
+
+    let trollClicks = 0;
+
+    function verifyCaptcha() {
+      if (!checkbot.checked) {
+        alert("Please verify you're not a robot.");
+        return;
+      }
+
+      captchaDiv.style.display = "none";
+      loadingDiv.style.display = "block";
+
+      let width = 0;
+      let interval = setInterval(() => {
+        width += 2;
+        progress.style.width = width + "%";
+        if (width >= 100) {
+          clearInterval(interval);
+          loadingDiv.style.display = "none";
+          claimDiv.style.display = "block";
+          moveButtonRandomly(); // First move
+        }
+      }, 50);
+    }
+
+    function moveButtonRandomly() {
+      const x = Math.random() * (window.innerWidth - 200);
+      const y = Math.random() * (window.innerHeight - 100);
+      claimButton.style.left = `${x}px`;
+      claimButton.style.top = `${y}px`;
+    }
+
+    claimButton.addEventListener("mouseover", () => {
+      if (trollClicks < 7) moveButtonRandomly();
+    });
+
+    claimButton.addEventListener("click", () => {
+      trollClicks++;
+      if (trollClicks >= 7) {
+        claimButton.style.display = "none";
+        finalMessage.style.display = "block";
+        setTimeout(() => {
+          window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
+        }, 3000);
+      }
     });
   </script>
+
 </body>
 </html>
