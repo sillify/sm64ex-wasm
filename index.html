@@ -3,16 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Anonymous Forum</title>
+  <title>Viridian</title>
   <link rel="stylesheet" href="style.css">
+  <script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-storage.js"></script>
 </head>
 <body>
   <h1>Viridian</h1>
-  <div id="new-post">
-    <textarea id="postContent" placeholder="Write your post..."></textarea>
-    <button onclick="addPost()">Post</button>
+
+  <div id="new-thread">
+    <input id="threadTitle" placeholder="Thread title...">
+    <textarea id="threadContent" placeholder="First post..."></textarea>
+    <input type="file" id="threadImage">
+    <button onclick="createThread()">Create Thread</button>
   </div>
-  <div id="posts"></div>
+
+  <h2>Threads</h2>
+  <div id="threads"></div>
+
   <script src="script.js"></script>
 </body>
 </html>
